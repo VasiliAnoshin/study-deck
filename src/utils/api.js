@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native'
 
 const DECK_STORAGE_KEY = 'StudyDeck:key'
 
-export const dataTest = {
+export const fakeData = {
         React: {
           title: 'React',
           questions: [
