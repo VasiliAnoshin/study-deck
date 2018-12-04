@@ -1,14 +1,8 @@
-import { GET_ALL_DECKS } from '../actions'
+//add combineReducers
+import { combineReducers } from 'redux'
 
-function decks (state = {}, action) {
-    switch (action.type) {
-        case GET_ALL_DECKS :
-        return {
-            ...state,
-            ...action.fakeData,
-        }
-        default :
-        return state
-    }
-}
- export default decks
+import decks from './decks'
+
+export default combineReducers({
+    decks
+})

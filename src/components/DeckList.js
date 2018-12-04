@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { connect } from 'react-redux'
-import { getAllDecks } from '../actions'
+import { getAllDecks } from '../actions/decks'
 
 class DeckList extends React.Component {
 
@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
     }
 })
 
-function mapStateToProps (state) {
+function mapStateToProps ({ decks }) {
     return {
-        decks: Object.values(state)
+        decks: Object.values(decks)
     }
 }
 
