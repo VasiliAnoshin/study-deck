@@ -5,11 +5,14 @@ import DeckList from './src/components/DeckList'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './src/reducers'
+import middleware from './src/middleware'
+
+const store = createStore(reducer, middleware)
 
 export default class App extends React.Component {
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={store}>
         <View style={styles.container}>
           <DeckList />
         </View>
