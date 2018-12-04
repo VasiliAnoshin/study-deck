@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import { connect } from 'react-redux'
 import { getAllDecks } from '../actions/decks'
@@ -14,18 +14,21 @@ class DeckList extends React.Component {
         console.log(this.props.decks);
     
         return (
-            <View style={styles.container}> 
-                <Text>
-                Deck List
-                </Text>
-                <View>
+            <ScrollView style={styles.container}> 
+                <View style={styles.header}> 
+                    <Text style={styles.titleHeader}>
+                            Your Decks
+                    </Text>
+                </View>
+                <View style={styles.deckList}>
                     {this.props.decks.map( deck => (
-                        <View key={deck.title}>
-                            <Text>{deck.title}</Text>
+                        <View key={deck.title} style={styles.deck}>
+                            <Text style={styles.textCard}>{deck.title}</Text>
+                            <Text style={styles.textCard}>{deck.questions.length} cards</Text>
                         </View>
                     ))}
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 
@@ -33,8 +36,41 @@ class DeckList extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: 20,
+    },
+    header:{
+        marginTop: 10,
+        alignItems: 'center',
+        
+    },
+    titleHeader: {
+        fontSize: 30,
+        color: '#9fa9a3'
+    },
+    deckList: {
         flex: 1,
-        marginTop: 40
+        marginTop: 20,
+        marginLeft: 10,
+        marginRight: 10
+    },
+    deck: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: '#e3e0cc',
+        color: '#9fa9a3',
+        marginTop: 10,
+        padding: 30,
+        borderRadius: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1,
+    },
+    textCard: {
+        fontSize: 20,
+        color: '#3b3a30'
     }
 })
 
