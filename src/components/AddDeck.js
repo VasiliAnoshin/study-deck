@@ -13,12 +13,24 @@ class AddDeck extends React.Component {
     }
 
     _onPressSubmit = () => {
+        const { decks } = this.props
         const { title } = this.state
         if(title === '') {
             Alert.alert('Ops!', 'Deck`s title cant be empty.')
+            return false
         }
-        //dispatch action to update redux and save Storage
-        this.props.handlerAddNewDeck(title)
+        const titleTrim = title.trim()
+        const checkRepetTitle = decks.filter( deck => deck.title === titleTrim )
+        if(checkRepetTitle.length > 0) {
+            Alert.alert('Ops!', 'Deck`s title already exist, try another :)')
+            return false
+        }
+
+        this.props.handlerAddNewDeck(titleTrim)
+            .then(() => {
+                Alert.alert('Success!', 'New deck added.')
+                this.props.navigation.navigate('DeckList')
+            })
     }
 
     render() {
@@ -87,6 +99,10 @@ const styles = StyleSheet.create({
 
 })
 
+function mapStateToProps ({ decks }) {
+    return {
+        decks: Object.values(decks)
+    }
+}
 
-
-export default connect(null, { handlerAddNewDeck })(AddDeck)
+export default connect(mapStateToProps, { handlerAddNewDeck })(AddDeck)

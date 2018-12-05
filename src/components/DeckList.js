@@ -20,7 +20,14 @@ class DeckList extends React.Component {
                 </View>
                 <View style={styles.deckList}>
                     {this.props.decks.map( deck => (
-                        <TouchableOpacity key={deck.title} style={styles.deck}>
+                        <TouchableOpacity 
+                            key={deck.title} 
+                            style={styles.deck}
+                            onPress={() => this.props.navigation.navigate(
+                                'Deck',
+                                { entryId: deck.title }
+                            )}    
+                        >
                             <Text style={styles.textCard}>{deck.title}</Text>
                             <Text style={styles.textCard}>{deck.questions.length} cards</Text>
                         </TouchableOpacity>
