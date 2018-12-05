@@ -1,11 +1,19 @@
-import { GET_ALL_DECKS } from '../actions/decks'
+import { GET_ALL_DECKS, ADD_NEW_DECK } from '../actions/decks'
 
 function decks (state = {}, action) {
     switch (action.type) {
         case GET_ALL_DECKS :
         return {
             ...state,
-            ...action.fakeData,
+            ...action.decks,
+        }
+        case ADD_NEW_DECK :
+        return {
+            ...state,
+            [action.title]: {
+                title: action.title,
+                questions: []
+            },
         }
         default :
         return state

@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 
 import { connect } from 'react-redux'
-import { getAllDecks } from '../actions/decks'
+import { handlerGetAllDecks } from '../actions/decks'
 
 class DeckList extends React.Component {
 
     componentDidMount() {
-      this.props.getAllDecks()
+      this.props.handlerGetAllDecks()
     }
 
     render() {
@@ -78,4 +78,4 @@ function mapStateToProps ({ decks }) {
     }
 }
 
-export default connect(mapStateToProps, { getAllDecks })(DeckList)
+export default connect(mapStateToProps, { handlerGetAllDecks })(DeckList)
