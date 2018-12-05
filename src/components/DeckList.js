@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 
 import { connect } from 'react-redux'
 import { getAllDecks } from '../actions/decks'
@@ -11,8 +11,6 @@ class DeckList extends React.Component {
     }
 
     render() {
-        console.log(this.props.decks);
-    
         return (
             <ScrollView style={styles.container}> 
                 <View style={styles.header}> 
@@ -22,10 +20,10 @@ class DeckList extends React.Component {
                 </View>
                 <View style={styles.deckList}>
                     {this.props.decks.map( deck => (
-                        <View key={deck.title} style={styles.deck}>
+                        <TouchableOpacity key={deck.title} style={styles.deck}>
                             <Text style={styles.textCard}>{deck.title}</Text>
                             <Text style={styles.textCard}>{deck.questions.length} cards</Text>
-                        </View>
+                        </TouchableOpacity>
                     ))}
                 </View>
             </ScrollView>
