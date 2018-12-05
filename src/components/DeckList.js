@@ -25,7 +25,7 @@ class DeckList extends React.Component {
                             style={styles.deck}
                             onPress={() => this.props.navigation.navigate(
                                 'Deck',
-                                { entryId: deck.title }
+                                { deck }
                             )}    
                         >
                             <Text style={styles.textCard}>{deck.title}</Text>
