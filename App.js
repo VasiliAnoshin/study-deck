@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import DeckList from './src/components/DeckList'
-import AddDeck from './src/components/AddDeck'
+
+import TabContainer from './src/components/TabContainer'
 
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -15,7 +15,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <DeckList />
+          <TabContainer />
         </View>
       </Provider>
     );
