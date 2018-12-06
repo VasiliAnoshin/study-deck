@@ -10,6 +10,7 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icon
 import DeckList from './DeckList'
 import AddDeck from './AddDeck'
 import Deck from './Deck'
+import AddCard from './AddCard'
 import { darkLigth, white } from '../utils/colors'
 
 const RouteConfigs = {
@@ -63,6 +64,15 @@ const MainNavigator = createStackNavigator({
     },
     Deck: {
         screen: Deck,
+        navigationOptions: ({ navigation }) => ({
+            headerTintColor: white,
+            headerStyle: {
+            backgroundColor: darkLigth,
+            },
+        }),
+    },
+    AddCard: {
+        screen: AddCard,
         navigationOptions: ({ navigation }) => ({
             headerTintColor: white,
             headerStyle: {

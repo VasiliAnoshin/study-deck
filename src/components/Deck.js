@@ -29,7 +29,10 @@ export default class Deck extends React.Component {
           <View style={styles.btns}>
             <TouchableOpacity
                 style={styles.button}
-                onPress={this._onPressAddCard}
+                onPress={() => this.props.navigation.navigate(
+                  'AddCard',
+                  { deck }
+              )}  
             >
                 <Text style={{color: white}}>Add Card</Text>
             </TouchableOpacity>
