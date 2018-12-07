@@ -1,4 +1,4 @@
-import { GET_ALL_DECKS, ADD_NEW_DECK } from '../actions/decks'
+import { GET_ALL_DECKS, ADD_NEW_DECK, ADD_NEW_CARD_DECK } from '../actions/decks'
 
 function decks (state = {}, action) {
     switch (action.type) {
@@ -14,6 +14,13 @@ function decks (state = {}, action) {
                 title: action.title,
                 questions: []
             },
+        }
+        case ADD_NEW_CARD_DECK :
+        const deckCurrently = state[action.title]
+        deckCurrently.questions.push(action.card)
+        return {
+            ...state,
+            [action.title]: deckCurrently
         }
         default :
         return state

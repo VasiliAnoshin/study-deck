@@ -1,8 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  TouchableOpacity, 
+  TextInput, 
+  KeyboardAvoidingView,
+  Alert
+} from 'react-native';
 import { dark, red, green, darkLigth, white, gray } from '../utils/colors'
+import { connect } from 'react-redux'
+import { handlerAddNewCardToDeck } from '../actions/decks'
 
-export default class AddCard extends React.Component {
+class AddCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = { question: '', answer: '' };
@@ -14,7 +24,19 @@ export default class AddCard extends React.Component {
     }
   }
 
-  _onPress = () => {
+  _onPress = (title) => {
+    const { question, answer } = this.state
+    if(question === '' || answer === '') {
+      Alert.alert('Ops!', 'Both fields need be filled :)')
+      return false
+    }
+
+    const card = { question, answer }
+    this.props.handlerAddNewCardToDeck(title, card)
+      .then(() => {
+        Alert.alert('Success!', 'New card added.')
+        this.props.navigation.navigate('DeckList')
+      })
     
   }
 
@@ -43,7 +65,7 @@ export default class AddCard extends React.Component {
 
             <TouchableOpacity
                 style={[styles.button]}
-                onPress={this._onPress}
+                onPress={() => this._onPress(deck.title)}
             >
                 <Text style={{color: white}}>Save</Text>
             </TouchableOpacity>
@@ -83,3 +105,5 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },  
 });
+
+export default connect(null, { handlerAddNewCardToDeck })(AddCard)
