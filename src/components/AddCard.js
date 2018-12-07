@@ -35,7 +35,7 @@ class AddCard extends React.Component {
     this.props.handlerAddNewCardToDeck(title, card)
       .then(() => {
         Alert.alert('Success!', 'New card added.')
-        this.props.navigation.navigate('DeckList')
+        this.props.navigation.navigate('Deck')
       })
     
   }
