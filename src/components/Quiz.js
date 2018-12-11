@@ -10,35 +10,84 @@ import {
 } from 'react-native';
 import { dark, red, green, darkLigth, white, gray } from '../utils/colors'
 import { connect } from 'react-redux'
-import { setQuiz } from '../actions/quiz'
+import { setQuiz, setAnswerToShow } from '../actions/quiz'
 
 class Quiz extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { question: '', answer: '' };
-  }
-  static navigationOptions = ({ navigation }) => {
-    const { deck } = navigation.state.params
-    return {
-        title: 'Quiz'
+    constructor(props) {
+        super(props);
+        this.state = { question: '', answer: '' };
     }
-  }
+    static navigationOptions = ({ navigation }) => {
+        const { deck } = navigation.state.params
+        return {
+            title: 'Quiz'
+        }
+    }
 
-  componentDidMount() {
-    //enviar questions para o Redux via action
-    const { deck } = this.props.navigation.state.params
-    this.props.setQuiz(deck.questions)
-  }
+    componentDidMount() {
+        //enviar questions para o Redux via action
+        const { deck } = this.props.navigation.state.params
+        this.props.setQuiz(deck.questions)
+    }
 
-  _onPress = (title) => {
+    checkQuizRemaining() {
+        const quizToAnswer = this.props.quiz.questions.filter( question => question.answered === false )
+        return quizToAnswer.length
+    }
 
-    
-  }
+    mountQuestion(questions) {
+        let questionToShow = null
+        let numberQuestionAnwsered = 0
+        for (let index = 0; index < questions.length; index++) {
+            const question = questions[index];
+            if(question.answered === false) {
+                numberQuestionAnwsered = index
+                questionToShow = question
+                break
+            }
+        }
 
-  checkQuizRemaining() {
-    const quizToAnswer = this.props.quiz.questions.filter( question => question.answered === false )
-    return quizToAnswer.length
-  }
+        return (
+            <View style={styles.container}>
+                <View style={styles.counter}>
+                    <Text style={{fontSize: 20}}>{`${numberQuestionAnwsered + 1}/${questions.length}`}</Text>
+                </View>
+                <View style={styles.header}>
+                    <Text style={{fontSize: 30}}>{questionToShow.question} ?</Text>
+                </View>
+                <TouchableOpacity
+                    style={[styles.button, {backgroundColor: green}]}
+                    onPress={() => this.props.setAnswerToShow(questionToShow)} 
+                >
+                    <Text style={{color: white}}>Answer</Text>
+                </TouchableOpacity>
+            </View>
+        )
+
+    }
+
+    showAnwser(question) {
+        console.log(question.answer);
+        return (
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={{fontSize: 30}}>{question.answer} </Text>
+                </View>
+                <TouchableOpacity
+                    style={[styles.button, {backgroundColor: green}]}
+                    onPress={() => this.props.setAnswerToShow(questionToShow)} 
+                >
+                    <Text style={{color: white}}>Correct</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.button, {backgroundColor: red}]}
+                    onPress={() => this.props.setAnswerToShow(questionToShow)} 
+                >
+                    <Text style={{color: white}}>Incorrect</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
 
   render() {
     if(!this.props.quiz.questions) {
@@ -48,10 +97,9 @@ class Quiz extends React.Component {
     const { deck } = this.props.navigation.state.params
     return (
         <View style={styles.container}>
-            <View style={styles.counter}>
-                <Text style={{fontSize: 20}}>{`${deck.questions.length}/${this.checkQuizRemaining()}`}</Text>
-            </View>
-            
+            {this.props.quiz.show === 'question' 
+                ? this.mountQuestion(this.props.quiz.questions)
+                : this.showAnwser(this.props.quiz.show)}
         </View>
     );
   }
@@ -99,4 +147,4 @@ function mapStateToProps({ quiz }) {
     }
 }
 
-export default connect(mapStateToProps, { setQuiz })(Quiz)
+export default connect(mapStateToProps, { setQuiz, setAnswerToShow })(Quiz)
