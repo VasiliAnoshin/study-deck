@@ -10,12 +10,14 @@ import {
 } from 'react-native';
 import { dark, red, green, darkLigth, white, gray } from '../utils/colors'
 import { connect } from 'react-redux'
-import { setQuiz, setAnswerToShow } from '../actions/quiz'
+import { setQuiz, setAnswerToShow, setQuestionToShow } from '../actions/quiz'
+import TextButton from '../templates/TextButton'
+import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
 class Quiz extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { question: '', answer: '' };
+        this.mountQuestion = this.mountQuestion.bind(this)
     }
     static navigationOptions = ({ navigation }) => {
         const { deck } = navigation.state.params
@@ -70,6 +72,10 @@ class Quiz extends React.Component {
                 </View>
                 <View style={styles.header}>
                     <Text style={{fontSize: 30}}>{show.answer} </Text>
+                    <TextButton onPress={() => this.props.setQuestionToShow() }> 
+                        <Ionicons name='ios-return-left' size={30} color={darkLigth} />
+                        Question
+                    </TextButton>
                 </View>
                 <TouchableOpacity
                     style={[styles.button, {backgroundColor: green}]}
@@ -145,4 +151,4 @@ function mapStateToProps({ quiz }) {
     }
 }
 
-export default connect(mapStateToProps, { setQuiz, setAnswerToShow })(Quiz)
+export default connect(mapStateToProps, { setQuiz, setAnswerToShow, setQuestionToShow })(Quiz)

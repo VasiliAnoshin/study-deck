@@ -1,4 +1,4 @@
-import { SET_QUIZ, SET_ANSWER_TO_SHOW } from '../actions/quiz'
+import { SET_QUIZ, SET_ANSWER_TO_SHOW, SET_QUESTION_TO_SHOW } from '../actions/quiz'
 
 function quiz (state = {}, action) {
     switch (action.type) {
@@ -22,6 +22,11 @@ function quiz (state = {}, action) {
         return {
             ...state,
             show: action.question
+        }
+        case SET_QUESTION_TO_SHOW :
+        return {
+            ...state,
+            show: `question`
         }
 
         default :
