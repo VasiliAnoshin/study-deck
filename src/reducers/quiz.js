@@ -2,7 +2,8 @@ import {
     SET_QUIZ, 
     SET_ANSWER_TO_SHOW, 
     SET_QUESTION_TO_SHOW,
-    SET_AS_CORRECT
+    SET_AS_CORRECT,
+    SET_AS_INCORRECT
 } from '../actions/quiz'
 
 function quiz (state = {}, action) {
@@ -48,7 +49,20 @@ function quiz (state = {}, action) {
             show: 'question'
             
         }
+        case SET_AS_INCORRECT :
+        let questionsArrInc = state.questions
+        for (let index = 0; index < questionsArrInc.length; index++) {
+            if(questionsArrInc[index].number === action.questionNumber) {
+                questionsArrInc[index].answered = true
+            }
+        }
 
+        return {
+            ...state,
+            questions: questionsArrInc,
+            show: 'question'
+            
+        }
 
         default :
         return state

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { dark, red, green, darkLigth, white, gray } from '../utils/colors'
 import { connect } from 'react-redux'
-import { setQuiz, setAnswerToShow, setQuestionToShow, setAsCorrect } from '../actions/quiz'
+import { setQuiz, setAnswerToShow, setQuestionToShow, setAsCorrect, setAsIncorrect } from '../actions/quiz'
 import TextButton from '../templates/TextButton'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
@@ -90,7 +90,7 @@ class Quiz extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.button, {backgroundColor: red}]}
-                    onPress={() => {}} 
+                    onPress={() => this.props.setAsIncorrect(show.number)} 
                 >
                     <Text style={{color: white}}>Incorrect</Text>
                 </TouchableOpacity>
@@ -154,4 +154,10 @@ function mapStateToProps({ quiz }) {
     }
 }
 
-export default connect(mapStateToProps, { setQuiz, setAnswerToShow, setQuestionToShow, setAsCorrect })(Quiz)
+export default connect(mapStateToProps, { 
+        setQuiz, 
+        setAnswerToShow, 
+        setQuestionToShow, 
+        setAsCorrect,
+        setAsIncorrect
+     })(Quiz)
