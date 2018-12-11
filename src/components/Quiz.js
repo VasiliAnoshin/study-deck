@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { dark, red, green, darkLigth, white, gray } from '../utils/colors'
 import { connect } from 'react-redux'
-import { setQuiz, setAnswerToShow, setQuestionToShow } from '../actions/quiz'
+import { setQuiz, setAnswerToShow, setQuestionToShow, setAsCorrect } from '../actions/quiz'
 import TextButton from '../templates/TextButton'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
@@ -43,6 +43,10 @@ class Quiz extends React.Component {
             }
         }
 
+        if(questionToShow === null) {
+            return <View><Text>Quiz Ended</Text></View>
+        } 
+
         return (
             <View style={styles.container}>
                 <View style={styles.counter}>
@@ -64,7 +68,7 @@ class Quiz extends React.Component {
 
     showAnwser(quiz) {
         const { show, numberOfQuestions, questions } = quiz
-        console.log(show.answer);
+        // console.log(show.answer);
         return (
             <View style={styles.container}>
                 <View style={styles.counter}>
@@ -77,9 +81,10 @@ class Quiz extends React.Component {
                         Question
                     </TextButton>
                 </View>
+                {/* TODO: tratar quando respondido correto e incorreto */}
                 <TouchableOpacity
                     style={[styles.button, {backgroundColor: green}]}
-                    onPress={() => {}} 
+                    onPress={() => this.props.setAsCorrect(show.number)} 
                 >
                     <Text style={{color: white}}>Correct</Text>
                 </TouchableOpacity>
@@ -144,11 +149,9 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps({ quiz }) {
-    console.log(quiz);
-    
     return {
         quiz
     }
 }
 
-export default connect(mapStateToProps, { setQuiz, setAnswerToShow, setQuestionToShow })(Quiz)
+export default connect(mapStateToProps, { setQuiz, setAnswerToShow, setQuestionToShow, setAsCorrect })(Quiz)

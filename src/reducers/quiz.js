@@ -1,4 +1,9 @@
-import { SET_QUIZ, SET_ANSWER_TO_SHOW, SET_QUESTION_TO_SHOW } from '../actions/quiz'
+import { 
+    SET_QUIZ, 
+    SET_ANSWER_TO_SHOW, 
+    SET_QUESTION_TO_SHOW,
+    SET_AS_CORRECT
+} from '../actions/quiz'
 
 function quiz (state = {}, action) {
     switch (action.type) {
@@ -28,6 +33,22 @@ function quiz (state = {}, action) {
             ...state,
             show: `question`
         }
+        case SET_AS_CORRECT :
+        let questionsArr = state.questions
+        for (let index = 0; index < questionsArr.length; index++) {
+            if(questionsArr[index].number === action.questionNumber) {
+                questionsArr[index].answered = true
+                questionsArr[index].correct = true
+            }
+        }
+
+        return {
+            ...state,
+            questions: questionsArr,
+            show: 'question'
+            
+        }
+
 
         default :
         return state
