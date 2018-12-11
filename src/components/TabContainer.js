@@ -11,6 +11,7 @@ import DeckList from './DeckList'
 import AddDeck from './AddDeck'
 import Deck from './Deck'
 import AddCard from './AddCard'
+import Quiz from './Quiz'
 import { darkLigth, white } from '../utils/colors'
 
 const RouteConfigs = {
@@ -73,6 +74,15 @@ const MainNavigator = createStackNavigator({
     },
     AddCard: {
         screen: AddCard,
+        navigationOptions: ({ navigation }) => ({
+            headerTintColor: white,
+            headerStyle: {
+            backgroundColor: darkLigth,
+            },
+        }),
+    },
+    Quiz: {
+        screen: Quiz,
         navigationOptions: ({ navigation }) => ({
             headerTintColor: white,
             headerStyle: {

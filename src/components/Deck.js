@@ -13,10 +13,6 @@ class Deck extends React.Component {
     }
   }
 
-  _onPressStartQuiz = () => {
-
-  }
-
   shouldComponentUpdate(nextProps) {
     if(nextProps.deckCardsLength !== this.props.deckCardsLength) {
       return true
@@ -26,7 +22,6 @@ class Deck extends React.Component {
 
   render() {
     const { deck, deckCardsLength } = this.props
-    console.log('em DECK ', deck);
   
     return (
         <View style={styles.container}>
@@ -46,7 +41,10 @@ class Deck extends React.Component {
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.button, {backgroundColor: red}]}
-                onPress={this._onPressStartQuiz}
+                onPress={() => this.props.navigation.navigate(
+                  'Quiz',
+                  { deck }
+              )} 
             >
                 <Text style={{color: white}}>Start Quiz</Text>
             </TouchableOpacity>
