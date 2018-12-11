@@ -30,18 +30,12 @@ class Quiz extends React.Component {
         this.props.setQuiz(deck.questions)
     }
 
-    checkQuizRemaining() {
-        const quizToAnswer = this.props.quiz.questions.filter( question => question.answered === false )
-        return quizToAnswer.length
-    }
-
-    mountQuestion(questions) {
+    mountQuestion(quiz) {
+        const { numberOfQuestions, questions } = quiz
         let questionToShow = null
-        let numberQuestionAnwsered = 0
         for (let index = 0; index < questions.length; index++) {
             const question = questions[index];
             if(question.answered === false) {
-                numberQuestionAnwsered = index
                 questionToShow = question
                 break
             }
@@ -50,7 +44,7 @@ class Quiz extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.counter}>
-                    <Text style={{fontSize: 20}}>{`${numberQuestionAnwsered + 1}/${questions.length}`}</Text>
+                    <Text style={{fontSize: 20}}>{`${questionToShow.number}/${numberOfQuestions}`}</Text>
                 </View>
                 <View style={styles.header}>
                     <Text style={{fontSize: 30}}>{questionToShow.question} ?</Text>
@@ -66,22 +60,26 @@ class Quiz extends React.Component {
 
     }
 
-    showAnwser(question) {
-        console.log(question.answer);
+    showAnwser(quiz) {
+        const { show, numberOfQuestions, questions } = quiz
+        console.log(show.answer);
         return (
             <View style={styles.container}>
+                <View style={styles.counter}>
+                    <Text style={{fontSize: 20}}>{`${show.number}/${numberOfQuestions}`}</Text>
+                </View>
                 <View style={styles.header}>
-                    <Text style={{fontSize: 30}}>{question.answer} </Text>
+                    <Text style={{fontSize: 30}}>{show.answer} </Text>
                 </View>
                 <TouchableOpacity
                     style={[styles.button, {backgroundColor: green}]}
-                    onPress={() => this.props.setAnswerToShow(questionToShow)} 
+                    onPress={() => {}} 
                 >
                     <Text style={{color: white}}>Correct</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.button, {backgroundColor: red}]}
-                    onPress={() => this.props.setAnswerToShow(questionToShow)} 
+                    onPress={() => {}} 
                 >
                     <Text style={{color: white}}>Incorrect</Text>
                 </TouchableOpacity>
@@ -98,8 +96,8 @@ class Quiz extends React.Component {
     return (
         <View style={styles.container}>
             {this.props.quiz.show === 'question' 
-                ? this.mountQuestion(this.props.quiz.questions)
-                : this.showAnwser(this.props.quiz.show)}
+                ? this.mountQuestion(this.props.quiz)
+                : this.showAnwser(this.props.quiz)}
         </View>
     );
   }

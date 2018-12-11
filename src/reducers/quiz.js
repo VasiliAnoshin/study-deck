@@ -9,11 +9,13 @@ function quiz (state = {}, action) {
             const question = questions[index];
             question.answered = false
             question.correct = false
+            question.number = index + 1
             questionsToQuiz.push(question)
         }
         return {
             ...state,
             questions: questionsToQuiz,
+            numberOfQuestions: questions.length,
             show: 'question'
         }
         case SET_ANSWER_TO_SHOW :
