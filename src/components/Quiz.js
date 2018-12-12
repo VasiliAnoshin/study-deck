@@ -13,6 +13,7 @@ import { connect } from 'react-redux'
 import { setQuiz, setAnswerToShow, setQuestionToShow, setAsCorrect, setAsIncorrect } from '../actions/quiz'
 import TextButton from '../templates/TextButton'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import QuizEnded from './QuizEnded'
 
 class Quiz extends React.Component {
     constructor(props) {
@@ -44,7 +45,7 @@ class Quiz extends React.Component {
         }
 
         if(questionToShow === null) {
-            return <View><Text>Quiz Ended</Text></View>
+            return <QuizEnded quiz={quiz} />
         } 
 
         return (
@@ -81,7 +82,6 @@ class Quiz extends React.Component {
                         Question
                     </TextButton>
                 </View>
-                {/* TODO: tratar quando respondido correto e incorreto */}
                 <TouchableOpacity
                     style={[styles.button, {backgroundColor: green}]}
                     onPress={() => this.props.setAsCorrect(show.number)} 
