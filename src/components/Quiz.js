@@ -11,6 +11,7 @@ import { setQuiz, setAnswerToShow, setQuestionToShow, setAsCorrect, setAsIncorre
 import TextButton from '../templates/TextButton'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 import QuizEnded from './QuizEnded'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class Quiz extends React.Component {
     constructor(props) {
@@ -25,6 +26,7 @@ class Quiz extends React.Component {
     }
 
     componentDidMount() {
+        clearLocalNotification().then(setLocalNotification)
         const { deck } = this.props.navigation.state.params
         this.props.setQuiz(deck.questions)
     }
