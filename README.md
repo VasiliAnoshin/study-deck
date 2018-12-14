@@ -9,7 +9,7 @@ To test this App
 - Just download or clone this project ``git clone https://github.com/elfiservice/study-deck.git``
 - In a terminal into the folder of project, execute ``npm install`` to install all dependencies
 - If you are using a Mac, XCODE is needed (you can find in Apple Store).
-- After this, In a terminal into the folder of project, execute ``expo start`` (You need to have a expo installed globaly)
+- After this, In a terminal into the folder of project, execute ``expo start`` (You need to have a expo installed globaly) [More here](https://docs.expo.io/versions/latest/introduction/installation)
 
 ## Technology
 - ReactJs and React Native
