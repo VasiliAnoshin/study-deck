@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "study-deck",
-    "description": "This project is really great.",
+    "description": "Create decks to help you in your studies.",
     "slug": "study-deck",
     "privacy": "public",
     "sdkVersion": "31.0.0",
@@ -12,7 +12,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#9fa9a3"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
