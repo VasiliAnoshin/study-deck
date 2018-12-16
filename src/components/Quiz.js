@@ -27,11 +27,10 @@ class Quiz extends React.Component {
 
     componentDidMount() {
         clearLocalNotification().then(setLocalNotification)
-        const { deck } = this.props.navigation.state.params
-        this.props.setQuiz(deck.questions)
+        this.restartQuiz()
     }
 
-    mountQuestion(quiz) {
+    mountQuestion = (quiz) => {
         const { numberOfQuestions, questions } = quiz
         let questionToShow = null
         for (let index = 0; index < questions.length; index++) {
@@ -43,7 +42,13 @@ class Quiz extends React.Component {
         }
 
         if(questionToShow === null) {
-            return <QuizEnded quiz={quiz} />
+            const { deck } = this.props.navigation.state.params
+            return <QuizEnded 
+                        quiz={quiz} 
+                        deck={deck} 
+                        navigation={this.props.navigation} 
+                        restartQuiz={this.restartQuiz}
+                        />
         } 
 
         return (
@@ -103,12 +108,16 @@ class Quiz extends React.Component {
         )
     }
 
+    restartQuiz = () => {
+        const { deck } = this.props.navigation.state.params
+        this.props.setQuiz(deck.questions)
+    }
+
   render() {
     if(!this.props.quiz.questions) {
         return <View style={styles.container}><Text>Loading...</Text></View>
     }
 
-    const { deck } = this.props.navigation.state.params
     return (
         <View style={styles.container}>
             {this.props.quiz.show === 'question' 
