@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { dark, red, green, darkLigth, white, gray } from '../utils/colors'
+import { withNavigation } from 'react-navigation';
 
 class QuizEnded extends Component {
     constructor(props) {
@@ -72,4 +73,4 @@ const styles = StyleSheet.create({
       },
 });
 
-export default QuizEnded
+export default withNavigation(QuizEnded)

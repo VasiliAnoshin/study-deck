@@ -46,7 +46,6 @@ class Quiz extends React.Component {
             return <QuizEnded 
                         quiz={quiz} 
                         deck={deck} 
-                        navigation={this.props.navigation} 
                         restartQuiz={this.restartQuiz}
                         />
         } 

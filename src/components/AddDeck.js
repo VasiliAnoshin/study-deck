@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'reac
 import { connect } from 'react-redux'
 import { handlerAddNewDeck } from '../actions/decks'
 
-import { dark, darkLigth, green, gray, white } from '../utils/colors'
+import { darkLigth, green, gray, white } from '../utils/colors'
 
 class AddDeck extends React.Component {
     constructor(props) {
@@ -26,10 +26,16 @@ class AddDeck extends React.Component {
             return false
         }
 
+        const deck = {
+            title: titleTrim,
+            questions: []
+        }
+
         this.props.handlerAddNewDeck(titleTrim)
             .then(() => {
                 Alert.alert('Success!', 'New deck added.')
-                this.props.navigation.navigate('DeckList')
+                this.props.navigation.navigate('Deck', { deck })
+                this.setState({ title: '' })
             })
     }
 
