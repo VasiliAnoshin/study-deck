@@ -57,13 +57,18 @@ const styles = StyleSheet.create({
     btns: {
         flex: 2,
         marginLeft: 10,
-        marginRight: 10
+        marginRight: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
       },
       button: {
         alignItems: 'center',
         backgroundColor: green,
         padding: 15,
         marginTop: 40,
+        marginLeft: 20,
+        marginRight: 20
       },
 });
 

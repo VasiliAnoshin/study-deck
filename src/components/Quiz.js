@@ -78,7 +78,7 @@ class Quiz extends React.Component {
                     <Text style={{fontSize: 20}}>{`${show.number}/${numberOfQuestions}`}</Text>
                 </View>
                 <View style={styles.header}>
-                    <Text style={{fontSize: 30}}>{show.answer} </Text>
+                    <Text style={[{fontSize: 30}, {padding: 20}]}>{show.answer}</Text>
                     <View style={styles.textButton}>
                         <TextButton style={{fontSize: 15}} onPress={() => this.props.setQuestionToShow() }> 
                             Question
