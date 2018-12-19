@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform } from 'react-native';
 
 import { connect } from 'react-redux'
 import { handlerGetAllDecks } from '../actions/decks'
@@ -28,7 +28,7 @@ class DeckList extends React.Component {
                                 { deck }
                             )}    
                         >
-                            <Text style={styles.textCard}>{deck.title}</Text>
+                            <Text style={[styles.textCard, styles.cardTitle]}>{deck.title}</Text>
                             <Text style={styles.textCard}>{deck.questions.length} cards</Text>
                         </TouchableOpacity>
                     ))}
@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     textCard: {
         fontSize: 20,
         color: '#3b3a30'
+    },
+    cardTitle: {
+        maxWidth: 150
     }
 })
 
