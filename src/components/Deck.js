@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import { dark, red, green, darkLigth, white } from '../utils/colors'
+import { FontAwesome } from '@expo/vector-icons'
 
 import { connect } from 'react-redux'
 
@@ -9,7 +10,15 @@ class Deck extends React.Component {
     const { deck } = navigation.state.params
     return {
         title: deck.title,
-        headerBackTitle: null
+        headerBackTitle: null,
+        headerRight: (
+          <TouchableOpacity
+            style={{marginRight: 10}}
+            onPress={() => alert('This is a button!')}
+          >
+            <FontAwesome name='trash-o' size={25} color={white} />
+          </TouchableOpacity>
+        ),
     }
   }
 
