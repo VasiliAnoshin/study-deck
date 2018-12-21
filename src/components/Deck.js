@@ -43,6 +43,14 @@ class Deck extends React.Component {
       })
   }
 
+  _startQuiz = (deck) => {
+    if(deck.questions.length <= 0) {
+      Alert.alert('Ops! This quiz have not any cards added! Try add some cards.')
+      return false
+    }
+    this.props.navigation.navigate('Quiz', { deck })
+  }
+
   render() {
     const { deck, deckCardsLength } = this.props
   
@@ -64,10 +72,7 @@ class Deck extends React.Component {
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.button, {backgroundColor: red}]}
-                onPress={() => this.props.navigation.navigate(
-                  'Quiz',
-                  { deck }
-              )} 
+                onPress={() => this._startQuiz(deck)} 
             >
                 <Text style={{color: white}}>Start Quiz</Text>
             </TouchableOpacity>
