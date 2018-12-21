@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { dark, red, green, darkLigth, white } from '../utils/colors'
 import { FontAwesome } from '@expo/vector-icons'
+import { handlerRemoveDeck } from '../actions/decks'
 
 import { connect } from 'react-redux'
 
@@ -14,7 +15,7 @@ class Deck extends React.Component {
         headerRight: (
           <TouchableOpacity
             style={{marginRight: 10}}
-            onPress={() => alert('This is a button!')}
+            onPress={navigation.getParam('handlerRemoveDeck')}
           >
             <FontAwesome name='trash-o' size={25} color={white} />
           </TouchableOpacity>
@@ -22,11 +23,24 @@ class Deck extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.props.navigation.setParams({ handlerRemoveDeck: this._handlerRemoveDeck });
+  }
+
   shouldComponentUpdate(nextProps) {
     if(nextProps.deckCardsLength !== this.props.deckCardsLength) {
       return true
     }
     return false
+  }
+
+  _handlerRemoveDeck = () => {
+    const { deck } = this.props.navigation.state.params
+    this.props.handlerRemoveDeck(deck.title)
+      .then(() => {
+        Alert.alert('Done!', 'The deck was deleted.')
+        this.props.navigation.navigate('DeckList')
+      })
   }
 
   render() {
@@ -88,7 +102,13 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps ({ decks }, { navigation }) {
-  const deck = decks[navigation.state.params.deck.title]
+  let deck = decks[navigation.state.params.deck.title]
+  if(!deck) {
+    deck = {
+      title: '',
+      questions: []
+    }
+  }
 
   return {
       deck,
@@ -96,4 +116,4 @@ function mapStateToProps ({ decks }, { navigation }) {
   }
 }
 
-export default connect(mapStateToProps)(Deck)
+export default connect(mapStateToProps, { handlerRemoveDeck })(Deck)

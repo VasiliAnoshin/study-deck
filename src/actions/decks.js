@@ -1,8 +1,9 @@
-import { fakeData, saveDeckTitle, getDecks, addCardToDeck } from '../utils/api'
+import { fakeData, saveDeckTitle, getDecks, addCardToDeck, removeDeckAPI } from '../utils/api'
 
 export const GET_ALL_DECKS = 'GET_ALL_DECKS'
 export const ADD_NEW_DECK = 'ADD_NEW_DECK'
 export const ADD_NEW_CARD_DECK = 'ADD_NEW_CARD_DECK'
+export const REMOVE_DECK = 'REMOVE_DECK'
 
 // GET ALL DECKS
 export function handlerGetAllDecks() {
@@ -56,5 +57,23 @@ function addNewCardToDeck(title, card) {
         type: ADD_NEW_CARD_DECK,
         title,
         card
+    }
+}
+
+// REMOVE DECK
+export function handlerRemoveDeck(title) {
+    return dispatch => {
+        return removeDeckAPI(title)
+            .then(() => {
+                dispatch(removeDeck(title))
+            })
+            .catch(erro => alert('Ops! An error occurred try removing. Try again.'))
+    }
+}
+
+function removeDeck(title) {
+    return {
+        type: REMOVE_DECK,
+        title,
     }
 }
