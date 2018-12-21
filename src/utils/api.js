@@ -62,3 +62,13 @@ export function addCardToDeck(title, card) {
         }))
     })
 }
+
+export function removeDeck(title) {
+    return AsyncStorage.getItem(DECK_STORAGE_KEY)
+        .then((results) => {
+            const data = JSON.parse(results)
+            data[title] = undefined
+            delete data[title]
+            AsyncStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(data))
+        })
+} 
